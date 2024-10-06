@@ -1,0 +1,3 @@
+[submodule "iot-labs"]
+	path = iot-labs
+	url = https://github.com/aseyedia/iot-labs.git
