@@ -1,3 +1,6 @@
 [submodule "iot-labs"]
 	path = iot-labs
 	url = https://github.com/aseyedia/iot-labs.git
+[submodule "picar-4wd"]
+	path = picar-4wd
+	url = git@github.com:Coltinho10/picar-4wd.git
