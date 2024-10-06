@@ -1,26 +1,71 @@
+<!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      .container{
+                  display: flex;
+                }
+      #connection-status {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </head>
 
-<script src="index.js"></script>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h2>CS498: IoT -- Lab 2</h2>
+        <img src="../iot-labs/iot-lab-2/electron/media/default_background.png" id='pics'>
+      </div> 
+    </div>
 
-<body>
-<h1>My First Website</h1>
-<p>Hello IoT!</p>
+    <div class="row">
+      <div class="container">
+        <div class="jumbotron text-center col-md-6">
+            <span>&nbsp;&nbsp;</span> 
+            <span id="upArrow" style='font-size:50px; color:grey;'>&#8679;</span>
+            <br>
+            <span id="leftArrow" style='font-size:45px; color:grey;'>&#8678;</span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+            <span id="rightArrow" style='font-size:45px; color:grey;'>&#8680;</span>
+            <br>
+            <span>&nbsp;&nbsp;</span> 
+            <span id="downArrow" style='font-size:50px; color:grey;'>&#8681;</span>
+        </div>
 
-My name is: <input id="myName" type="text" placeholder="name"/>
-<button class="btn btn-success" onclick="greeting()">Sumbit</button>
-<br>
-<span id="greet"> </span>
-<br>
-<span id="greet_from_server"> </span>
-<div class="jumbotron text-center">
-    <button id="forwardBtn" class="btn btn-primary">Forward</button>
-    <br><br>
-    <button id="leftBtn" class="btn btn-primary">Left</button>
-    <button id="stopBtn" class="btn btn-danger">Stop</button>
-    <button id="rightBtn" class="btn btn-primary">Right</button>
-    <br><br>
-    <button id="backwardBtn" class="btn btn-primary">Backward</button>
-  </div>
-</body>
+        <div class="jumbotron text-left col-md-6">
+          <div id="connection-status">Connection Status: <span id="status">Disconnected</span></div>
+          
+          <!-- Checkbox for Inverting Left/Right Commands -->
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="invertTurnsCheckbox"> Invert Left/Right
+            </label>
+          </div>
 
+          <input id="message" type="text" placeholder="message to Pi"/>
+          <button class="btn btn-success" onclick="sendMessage()">Submit</button>
+          <p>
+            <span id="direction_dot" style="color:Green">&bull;</span> Car Direction: <span id="direction"> </span>
+           <br>
+           <span id="speed_dot" style="color:green">&bull;</span> Speed: <span id="speed">0.0</span>  
+           <br>
+           <span id="distance_dot" style="color:blue">&bull;</span> Distance: <span id="distance">0.0</span> <!-- Added Distance -->
+           <br>
+           <span id="temperature_dot" style="color:purple">&bull;</span> Temperature: <span id="temperature">0.0</span> <!-- Added Temperature -->
+           <br>
+           <span id="battery_dot" style="color:orange">&bull;</span> Battery: <span id="battery">N/A</span> <!-- Added Battery -->
+           <br>
+           Server return value: <span id="bluetooth"> </span>
+          </p>  
+        </div>
+      </div>
+    </div>
+
+    <script src="./index.js"></script>
+  </body>
 </html>
