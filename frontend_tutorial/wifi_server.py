@@ -1,4 +1,5 @@
 import socket
+from datetime import datetime
 
 HOST = "192.168.3.49"  # IP address of your Raspberry PI
 PORT = 65432          # Port to listen on (non-privileged ports are > 1023)
@@ -16,7 +17,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             data = client.recv(1024)      # receive 1024 Bytes of message in binary format
             if not data:
                 break
-            print(f"Received: {data.decode()}")     
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            print(f"[{timestamp}] Received: {data.decode()}")
             client.sendall(data) # Echo back to client
     except Exception as e: 
         print(f"An error occurred: {e}")
