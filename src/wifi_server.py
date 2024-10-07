@@ -2,14 +2,13 @@ import socket
 import json
 from datetime import datetime
 import picar_4wd as fc
-import os
 
 HOST = "192.168.68.110"  # IP address of your Raspberry PI
 PORT = 65432             # Port to listen on (non-privileged ports are > 1023)
 
 power_val = 50
 direction = "STOP"
-invert_turns = False  # Default inversion state
+invert_turns = False 
 
 def control_car(command):
     global direction, power_val, invert_turns
@@ -44,23 +43,6 @@ def control_car(command):
     else:
         print(f"Unknown command: {command}")
 
-def get_cpu_temperature():
-    try:
-        # Read the CPU temperature from the system
-        temp_str = open("/sys/class/thermal/thermal_zone0/temp").readline()
-        return round(float(temp_str) / 1000, 2)  # Convert to Celsius
-    except Exception as e:
-        print(f"Error reading CPU temperature: {e}")
-        return "N/A"
-
-def get_status():
-    return {
-        "direction": direction,
-        "speed": power_val,
-        "temperature": get_cpu_temperature(),
-        "invert_turns": invert_turns  
-    }
-
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind((HOST, PORT))
@@ -80,10 +62,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 print(f"[{timestamp}] Received: {data}")
                 
                 if data == "STATUS":
-                    status = get_status()
+                    status = fc.pi_read()
                 else:
                     control_car(data)
-                    status = get_status()
+                    status = fc.pi_read()
                 
                 response = json.dumps(status)
                 print(f"Sending response: {response}")
