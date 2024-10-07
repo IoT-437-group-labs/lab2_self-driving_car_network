@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      .container{
+        display: flex;
+      }
+      #connection-status {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .battery, .cpu_stats {
+        margin-top: 10px;
+      }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h2>CS498: IoT -- Lab 2</h2>
+        <img src="../iot-labs/iot-lab-2/electron/media/default_background.png" id='pics'>
+      </div> 
+    </div>
+
+    <div class="row">
+      <div class="container">
+        <div class="jumbotron text-center col-md-6">
+            <span>&nbsp;&nbsp;</span> 
+            <span id="upArrow" style='font-size:50px; color:grey;'>&#8679;</span>
+            <br>
+            <span id="leftArrow" style='font-size:45px; color:grey;'>&#8678;</span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+            <span id="rightArrow" style='font-size:45px; color:grey;'>&#8680;</span>
+            <br>
+            <span>&nbsp;&nbsp;</span> 
+            <span id="downArrow" style='font-size:50px; color:grey;'>&#8681;</span>
+        </div>
+
+        <div class="jumbotron text-left col-md-6">
+          <div id="connection-status">Connection Status: <span id="status">Disconnected</span></div>
+          
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="invertTurnsCheckbox"> Invert Left/Right
+            </label>
+          </div>
+
+          <input id="message" type="text" placeholder="message to Pi"/>
+          <button class="btn btn-success" onclick="sendMessage()">Submit</button>
+          <p>
+            <span id="cpu_temperature_dot" style="color:purple">&bull;</span> CPU Temperature: <span id="cpu_temperature">N/A</span>
+           <br>
+           <span id="cpu_usage_dot" style="color:purple">&bull;</span> CPU Usage: <span id="cpu_usage">N/A</span>
+           <br>
+           <span id="battery_dot" style="color:orange">&bull;</span> Battery: <span id="battery">N/A</span>
+           <br>
+          </p>  
+        </div>
+      </div>
+    </div>
+
+    <!-- Battery status bar. Commented out for now. -->
+    <!--
+    <div class="battery">
+      <span class="battery_text">Battery: N/A</span>
+      <div class="system_value">
+        <div class="fill" style="width: 0%;"></div>
+      </div>
+    </div>
+    -->
+
+    <script src="./index.js"></script>
+  </body>
+</html>
