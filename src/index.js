@@ -1,7 +1,7 @@
 const net = require('net');
 
 const TCP_PORT = 65432;
-const TCP_HOST = "192.168.68.110";
+const TCP_HOST = "192.168.6.146";
 
 document.onkeydown = updateKey;
 document.onkeyup = resetKey;
@@ -79,20 +79,16 @@ function updateKey(e) {
     if (e.keyCode == '87') {
         document.getElementById("upArrow").style.color = "green";
         send_command("w");
-    }
-    else if (e.keyCode == '83') {
+    } else if (e.keyCode == '83') {
         document.getElementById("downArrow").style.color = "green";
         send_command("s");
-    }
-    else if (e.keyCode == '65') {
+    } else if (e.keyCode == '65') {
         document.getElementById("leftArrow").style.color = "green";
         send_command("a");
-    }
-    else if (e.keyCode == '68') {
+    } else if (e.keyCode == '68') {
         document.getElementById("rightArrow").style.color = "green";
         send_command("d");
-    }
-    else if (e.keyCode == '73') {
+    } else if (e.keyCode == '73') {
         toggleInvertTurns();
     }
 }
@@ -117,8 +113,44 @@ function sendMessage() {
     send_command(message);
 }
 
+// function takePicture() {
+//     send_command("TAKE_PIC");
+// }
 
-document.getElementById("invertTurnsCheckbox").addEventListener('change', function () {
+// let dataBuffer = ''; // Buffer to hold incoming data
+
+// client.on('data', (data) => {
+//     // Append to buffer
+//     dataBuffer += data.toString();
+
+//     // Check if the data contains a newline, meaning a complete message is received
+//     if (dataBuffer.includes('\n')) {
+//         // Split buffer into separate messages
+//         const messages = dataBuffer.split('\n');
+
+//         // Process each message
+//         messages.forEach((message) => {
+//             if (message.trim()) { // Ignore empty lines
+//                 try {
+//                     const response = JSON.parse(message);
+
+//                     if (response.image) {
+//                         // Display the captured image
+//                         const imgElement = document.getElementById('pics');
+//                         imgElement.src = `data:image/jpeg;base64,${response.image}`;
+//                     } else if (response.cpu_temperature !== undefined) {
+//                         updateUI(response);
+//                     }
+//                 } catch (e) {
+//                     console.error('Error parsing JSON response:', e);
+//                 }
+//             }
+//         });
+//         dataBuffer = '';
+//     }
+// });
+
+document.getElementById("invertTurnsCheckbox").addEventListener('change', function() {
     invertTurns = this.checked;
     send_command("i");
 });
