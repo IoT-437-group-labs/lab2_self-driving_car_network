@@ -4,6 +4,7 @@
 
 # Instruction
 1. update server_addr in ui_bluetooth.py and pi_socket.py to RaspberryPi's Bluetooth MAC address
+You can do this running 'hciconfig'
 2. copy ui_bluetooth.py to PC
 3. copy pi_socket.py and picar.py to RaspberryPi
 4. run pi_socket.py
