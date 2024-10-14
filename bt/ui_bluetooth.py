@@ -7,7 +7,7 @@ import time
 import tkinter as tk
 
 
-server_addr = 'D8:3A:DD:A1:F1:04'
+server_addr = 'D8:3A:DD:F5:2B:80'
 server_port = 1
 
 buf_size = 1024

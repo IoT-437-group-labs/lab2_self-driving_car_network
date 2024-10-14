@@ -1,19 +1,32 @@
+import sys
+
 import socket
 import threading
 from collections import deque
 import signal
 import time
 
-from picar import Picar
+#MODEL = 'Picarx'
+MODEL = 'Picar_4WD'
+
+if MODEL=='Picar_4WD':
+    from picar import Picar
+
+elif MODEL=='Picar_4WD':
+    from picamera2 import Picamera2
+    sys.path.insert(0, '../picarx')
+    from picarx import Picarx
 
 
-server_addr = 'D8:3A:DD:A1:F1:04'
+
+server_addr = 'D8:3A:DD:F5:2B:80'
 server_port = 1
 
 buf_size = 1024
 
 client_sock = None
 server_sock = None
+
 sock = None
 
 exit_event = threading.Event()
@@ -24,6 +37,7 @@ output = ""
 dq_lock = threading.Lock()
 output_lock = threading.Lock()
 
+#car = Picarx()
 car = Picar()
 
 def send_msg(msg):
@@ -95,6 +109,7 @@ def start_client():
                 print(output_split[i])
                 if 'picar' in output_split[i]:
                     cmd_split = output_split[i].split()
+                    print(cmd_split)
                     getattr(car, cmd_split[2])()
                     send_msg("ACK")
                 elif 'disconnect' in output_split[i]:
@@ -103,6 +118,7 @@ def start_client():
             output = output_split[-1]
             output_lock.release()
 
+    # Close connection
     server_sock.close()
     sock.close()
     print("client thread end")
@@ -122,10 +138,8 @@ while not exit_event.is_set():
         send_msg(f"{car.status} {car.direction} {car.update_distance()} " + \
          f"{pi_data['cpu_temperature']} {float(pi_data['cpu_usage'])*100} {pi_data['battery']}")
     time.sleep(1)
-    
+
+# Shutdown car connection    
 del car
-
 print("Disconnected.")
-
-
 print("All done.")
